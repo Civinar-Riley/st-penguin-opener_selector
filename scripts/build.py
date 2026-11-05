@@ -63,6 +63,8 @@ def extract_notes(version: str) -> str:
 
 
 def main() -> None:
+    # Windows 重定向时 Python 按系统 ANSI 代码页写出，gh 按 UTF-8 读入会变成替换符
+    sys.stdout.reconfigure(encoding='utf-8')
     args = sys.argv[1:]
     if '--notes' in args:
         print(extract_notes(args[args.index('--notes') + 1]))
