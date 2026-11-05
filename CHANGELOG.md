@@ -18,6 +18,7 @@
 ### 工程化
 - 仓库结构调整：源码入 `src/`、旧版脚本入 `legacy/`，`scripts/build.py` 统一从源码生成酒馆助手 JSON
 - 新增 CI（语法 + 构建校验）与 tag 自动发布工作流
+- Release 资源改用 ASCII 文件名（`penguin-opener-helper-vX.Y.json`），GitHub 会剥离资源名中的非 ASCII 字符
 - 新增 CHANGELOG、.editorconfig、.gitignore
 
 ## v2.0 - 2026-10-05
