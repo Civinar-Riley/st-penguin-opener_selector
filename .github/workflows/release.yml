@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 语法检查
+        run: |
+          node --check src/opener_helper.js
+          python scripts/build.py --check
+      - name: 构建脚本 JSON
+        run: python scripts/build.py
+      - name: 校验 tag 与构建版本一致
+        run: |
+          BUILT=$(python scripts/build.py --check | sed -E 's/^OK: 企鹅开场白助手 v([0-9.]+).*/v\1/')
+          if [ "$BUILT" != "${GITHUB_REF_NAME}" ]; then
+            echo "::error::tag ${GITHUB_REF_NAME} 与源码构建版本 ${BUILT} 不一致，请检查 src/opener_helper.js 的版本标记"
+            exit 1
+          fi
+      - name: 提取更新日志
+        run: python scripts/build.py --notes "${GITHUB_REF_NAME}" > release_notes.md
+      - name: 发布 Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${GITHUB_REF_NAME}" dist/*.json --title "企鹅开场白助手 ${GITHUB_REF_NAME}" --notes-file release_notes.md
