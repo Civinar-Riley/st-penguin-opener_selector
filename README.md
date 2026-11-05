@@ -68,7 +68,7 @@ v2.0 起将上述两个功能合并在同一份脚本中，两个入口各自独
 
 **安装步骤**
 
-1. 前往 [Releases](https://github.com/Civinar-Riley/st-penguin-opener_selector/releases/latest)，下载最新版本资源中的 **`酒馆助手脚本-企鹅开场白助手 vX.Y.json`**
+1. 前往 [Releases](https://github.com/Civinar-Riley/st-penguin-opener_selector/releases/latest)，下载最新版本资源中的 **`penguin-opener-helper-vX.Y.json`**
 2. 打开酒馆 → 左上角「扩展」→ 酒馆助手 → 脚本库，点击「导入脚本」并选择该 JSON 文件
 3. 在脚本库中确认「企鹅开场白助手」处于**启用**状态
 4. 生效后即可使用：

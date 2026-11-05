@@ -2,7 +2,7 @@
 """从 src/opener_helper.js 生成酒馆助手脚本 JSON，保持单一事实来源。
 
 用法：
-    python scripts/build.py                  # 生成 dist/酒馆助手脚本-企鹅开场白助手 vX.Y.json
+    python scripts/build.py                  # 生成 dist/penguin-opener-helper-vX.Y.json
     python scripts/build.py --check          # 只校验可构建与版本标记，不写文件（CI 用）
     python scripts/build.py --notes v2.1     # 打印 CHANGELOG 中该版本的段落（发 Release 用）
 """
@@ -72,7 +72,9 @@ def main() -> None:
         print(f"OK: {script['name']}（content {len(script['content'])} 字符）")
         return
     DIST.mkdir(exist_ok=True)
-    out = DIST / f"酒馆助手脚本-{script['name']}.json"
+    # GitHub 会剥离 Release 资源名中的非 ASCII 字符，产物文件名用 ASCII
+    version = read_version(script['content'])
+    out = DIST / f'penguin-opener-helper-v{version}.json'
     out.write_text(json.dumps(script, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(f'已生成 {out}')
 
