@@ -4,7 +4,7 @@
 
 **SillyTavern 酒馆助手脚本 · 弹窗浏览并切换角色卡开场白，一键返回开场页**
 
-[![Version](https://img.shields.io/badge/version-v2.0-2f81f7?style=flat-square)](#-版本历史)
+[![Version](https://img.shields.io/badge/version-v2.1-2f81f7?style=flat-square)](#-版本历史)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey?style=flat-square)](./LICENSE)
 [![Platform](https://img.shields.io/badge/platform-SillyTavern-7b68ee?style=flat-square)](https://github.com/SillyTavern/SillyTavern)
 ![Requires](https://img.shields.io/badge/requires-Tavern%20Helper-orange?style=flat-square)
@@ -24,7 +24,7 @@
 - **去任意开场白**：脚本按钮「开场白选择」弹出选择器，列出角色卡的全部开场白，点击即切换第 0 楼；
 - **一键回开场页**：第 0 楼不在开场页时，正文末尾自动出现「← 返回开场页」按钮，点击即回到第 1 张开场白。
 
-v2.0 将上述两个功能合并在同一份脚本中，两个入口各自独立，任一失效不影响另一个。脚本不使用正则、不修改消息原文，仅读写第 0 楼的 swipes 数据。
+v2.0 起将上述两个功能合并在同一份脚本中，两个入口各自独立，任一失效不影响另一个。脚本不使用正则、不修改消息原文，仅读写第 0 楼的 swipes 数据。
 
 ## 📷 界面预览
 
@@ -68,9 +68,9 @@ v2.0 将上述两个功能合并在同一份脚本中，两个入口各自独立
 
 **安装步骤**
 
-1. 下载本仓库中的 **`酒馆助手脚本-企鹅开场白助手 v2.0.json`**
+1. 前往 [Releases](https://github.com/Civinar-Riley/st-penguin-opener_selector/releases/latest)，下载最新版本资源中的 **`酒馆助手脚本-企鹅开场白助手 vX.Y.json`**
 2. 打开酒馆 → 左上角「扩展」→ 酒馆助手 → 脚本库，点击「导入脚本」并选择该 JSON 文件
-3. 在脚本库中确认「企鹅开场白助手 v2.0」处于**启用**状态
+3. 在脚本库中确认「企鹅开场白助手」处于**启用**状态
 4. 生效后即可使用：
    - 聊天界面上方出现「开场白选择」按钮；
    - 当第 0 楼不在开场页时，正文末尾出现「← 返回开场页」按钮
@@ -90,11 +90,17 @@ v2.0 将上述两个功能合并在同一份脚本中，两个入口各自独立
 
 ```
 st-penguin-opener_selector/
-├── 酒馆助手脚本-企鹅开场白助手 v2.0.json       # ✅ 推荐下载：v2.0 合并版（选择器 + 返回开场页）
-├── opener_helper.js                            # v2.0 可读源码，与 JSON 内 content 一致
-├── 酒馆助手脚本-企鹅简易开场白选择器 v1.0.json  # 旧版：仅含开场白选择器，保留供已使用者继续导入
-├── opener_selector.js                          # v1.0 选择器可读源码
+├── src/
+│   └── opener_helper.js                        # ✅ v2.1 源码（单一事实来源）
+├── legacy/
+│   ├── 酒馆助手脚本-企鹅开场白助手 v2.0.json    # 旧版合并版脚本
+│   ├── 酒馆助手脚本-企鹅简易开场白选择器 v1.0.json
+│   └── opener_selector.js                      # v1.0 选择器源码
+├── scripts/
+│   └── build.py                                # 从源码生成酒馆助手 JSON（dist/ 随 Release 发布）
+├── .github/workflows/                          # CI 与 tag 自动发布
 ├── show.png                                    # 界面截图
+├── CHANGELOG.md
 ├── README.md
 └── LICENSE                                     # CC BY-NC-SA 4.0
 ```
@@ -126,6 +132,7 @@ A：目前仅针对普通单人聊天的第 0 楼设计，群聊场景未做适�
 
 | 版本 | 日期 | 更新内容 |
 | :---: | :---: | :--- |
+| **v2.1** | 2026-11-06 | 修复弹窗连点竞态与重复开场白映射；「返回开场页」重写为可读风格；仓库工程化（构建脚本 + CI + 自动发布） |
 | **v2.0** | 2026-10-05 | 合并「开场白选择器」与「返回开场页」为同一脚本，两个入口各自独立，互不干扰 |
 | **v1.0** | 2026-08-26 | 企鹅简易开场白选择器：脚本按钮弹窗浏览并切换角色卡开场白 |
 

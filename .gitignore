@@ -1,0 +1,9 @@
+# 构建产物随 Release 发布，不入库
+dist/
+release_notes.md
+
+__pycache__/
+
+# 系统文件
+Thumbs.db
+.DS_Store
