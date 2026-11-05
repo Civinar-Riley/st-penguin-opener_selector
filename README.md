@@ -98,6 +98,8 @@ st-penguin-opener_selector/
 │   └── opener_selector.js                      # v1.0 选择器源码
 ├── scripts/
 │   └── build.py                                # 从源码生成酒馆助手 JSON（dist/ 随 Release 发布）
+├── docs/
+│   └── PITFALLS.md                             # 防踩坑记录（发布 / 编码 / 酒馆助手环境）
 ├── .github/workflows/                          # CI 与 tag 自动发布
 ├── show.png                                    # 界面截图
 ├── CHANGELOG.md
