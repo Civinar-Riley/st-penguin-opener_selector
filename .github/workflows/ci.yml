@@ -17,6 +17,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: 语法检查
-        run: node --check src/opener_helper.js
+        # 酒馆助手以 <script type="module"> 执行脚本，按 module 语法检查
+        run: for f in src/*.js; do node --input-type=module --check < "$f" || exit 1; done
       - name: 构建校验
         run: python scripts/build.py --check

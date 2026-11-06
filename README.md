@@ -4,7 +4,7 @@
 
 **SillyTavern 酒馆助手脚本 · 弹窗浏览并切换角色卡开场白，一键返回开场页**
 
-[![Version](https://img.shields.io/badge/version-v2.1-2f81f7?style=flat-square)](#-版本历史)
+[![Version](https://img.shields.io/badge/version-v2.2-2f81f7?style=flat-square)](#-版本历史)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey?style=flat-square)](./LICENSE)
 [![Platform](https://img.shields.io/badge/platform-SillyTavern-7b68ee?style=flat-square)](https://github.com/SillyTavern/SillyTavern)
 ![Requires](https://img.shields.io/badge/requires-Tavern%20Helper-orange?style=flat-square)
@@ -68,7 +68,14 @@ v2.0 起将上述两个功能合并在同一份脚本中，两个入口各自独
 
 **安装步骤**
 
-1. 前往 [Releases](https://github.com/Civinar-Riley/st-penguin-opener_selector/releases/latest)，下载最新版本资源中的 **`penguin-opener-helper-vX.Y.json`**
+1. 前往 [Releases](https://github.com/Civinar-Riley/st-penguin-opener_selector/releases/latest)，从最新版本资源中任选一份下载：
+
+   | 文件 | 说明 |
+   | :--- | :--- |
+   | **`penguin-opener-helper-cdn.json`**（推荐） | CDN 加载器版：启动时从 jsDelivr 加载最新发布版，今后更新**无需重新导入**；需要联网 |
+   | `penguin-opener-helper-vX.Y.json` | 离线版：代码完整内置，不联网也能用；更新需重新下载导入 |
+
+   两份共用同一脚本 id，导入其一会替换另一个，不会同时运行。
 2. 打开酒馆 → 左上角「扩展」→ 酒馆助手 → 脚本库，点击「导入脚本」并选择该 JSON 文件
 3. 在脚本库中确认「企鹅开场白助手」处于**启用**状态
 4. 生效后即可使用：
@@ -91,7 +98,8 @@ v2.0 起将上述两个功能合并在同一份脚本中，两个入口各自独
 ```
 st-penguin-opener_selector/
 ├── src/
-│   └── opener_helper.js                        # ✅ v2.1 源码（单一事实来源）
+│   ├── opener_helper.js                        # ✅ 插件源码（单一事实来源，也是 CDN 加载目标）
+│   └── cdn_loader.js                           # CDN 加载器：解析最新 tag 并从 jsDelivr 加载
 ├── legacy/
 │   ├── 酒馆助手脚本-企鹅开场白助手 v2.0.json    # 旧版合并版脚本
 │   ├── 酒馆助手脚本-企鹅简易开场白选择器 v1.0.json
@@ -127,6 +135,9 @@ A：只在第 0 楼当前页不是第 1 张（开场页）时出现；切回第 
 **Q：会修改我的聊天记录吗？**
 A：本脚本只会读写第 0 楼的 swipes（消息页）数据，用于同步和切换开场白，不会改动其它楼层的正文；「返回开场页」按钮为界面注入，不写入消息文本。
 
+**Q：CDN 加载器版没反应 / 提示加载失败？**
+A：该版本需要能访问 jsDelivr（`testingcf.jsdelivr.net`）。网络受限时请改用离线版 `penguin-opener-helper-vX.Y.json`。新版本发布后，CDN 一般在数分钟到十余分钟内生效。
+
 **Q：支持群聊吗？**
 A：目前仅针对普通单人聊天的第 0 楼设计，群聊场景未做适配。
 
@@ -134,6 +145,7 @@ A：目前仅针对普通单人聊天的第 0 楼设计，群聊场景未做适�
 
 | 版本 | 日期 | 更新内容 |
 | :---: | :---: | :--- |
+| **v2.2** | 2026-11-06 | 新增 CDN 加载器版：从 jsDelivr 加载最新发布版，更新无需重新导入 |
 | **v2.1** | 2026-11-06 | 修复弹窗连点竞态与重复开场白映射；「返回开场页」重写为可读风格；仓库工程化（构建脚本 + CI + 自动发布） |
 | **v2.0** | 2026-10-05 | 合并「开场白选择器」与「返回开场页」为同一脚本，两个入口各自独立，互不干扰 |
 | **v1.0** | 2026-08-26 | 企鹅简易开场白选择器：脚本按钮弹窗浏览并切换角色卡开场白 |

@@ -20,7 +20,7 @@ jobs:
           python-version: '3.12'
       - name: 语法检查
         run: |
-          node --check src/opener_helper.js
+          for f in src/*.js; do node --input-type=module --check < "$f" || exit 1; done
           python scripts/build.py --check
       - name: 构建脚本 JSON
         run: python scripts/build.py

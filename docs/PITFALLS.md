@@ -42,6 +42,23 @@
 8. **脚本导入覆盖靠固定 id**
    `SCRIPT_ID`（build.py）沿用 v2.0 的 UUID。换了 id，用户重新导入会出现两条重复脚本。
 
+## CDN 加载器（jsDelivr）
+
+12. **`cdn.jsdelivr.net` 在国内网络常不可达**
+    现象：本机 `cdn.jsdelivr.net` 请求超时，`testingcf.jsdelivr.net` / `fastly.jsdelivr.net` 正常。
+    对策：加载器用 `testingcf.jsdelivr.net`（酒馆助手自身也用这个域名）。
+
+13. **jsDelivr 的 gh 版本号会剥掉 tag 的 `v` 前缀，且 `@2` 这类主版本范围不可用**
+    现象：tag `v2.1` 在 jsDelivr 里是版本 `2.1`；`@2.1` 可用，`@2` 404；`@latest`/`@main` 对应分支 HEAD（缓存 12 小时，会推送未发版改动）。
+    对策：加载器先查 `data.jsdelivr.com/v1/packages/gh/<repo>` 拿已收录版本列表、取最大值，再加载 `@X.Y` 不可变地址；查询失败回退构建时内置版本。
+
+14. **酒馆助手脚本以 `<script type="module">` 执行**
+    顶层 `await` 与动态 `import()` 可直接用；被 import 的文件同样在该 iframe 的全局环境中运行，能访问注入的 `$`、`eventOn` 等全局。
+    另：脚本内容不含 `pagehide` 时酒馆助手会注入 cleanup_protector；加载器注释里提及 pagehide，使两个版本运行环境一致。
+
+15. **新 tag 发布后 jsDelivr 收录有延迟**
+    版本列表接口缓存约 5 分钟，新版本被收录前加载器仍用上一版本；发版后先 `curl` 确认 `@X.Y` 返回 200 再对外宣布。
+
 ## 仓库工作流
 
 9. **发版只走 tag**
