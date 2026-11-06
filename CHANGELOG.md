@@ -3,6 +3,17 @@
 本项目的所有显著变更都记录在此文件中。
 格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)。
 
+## v2.2 - 2026-11-06
+
+### 新增
+- CDN 加载器版 `penguin-opener-helper-cdn.json`：启动时从 jsDelivr 加载最新发布版，今后发版无需重新导入
+  - 只加载已发布 tag 的不可变地址，不加载 main 分支
+  - 版本查询失败时回退到内置版本；加载失败弹出提示
+  - 与离线版共用脚本 id，导入其一即替换另一个，不会出现重复按钮
+
+### 说明
+- 离线版 `penguin-opener-helper-vX.Y.json` 继续随每个版本发布，功能与 v2.1 相同
+
 ## v2.1 - 2026-11-06
 
 ### 修复
